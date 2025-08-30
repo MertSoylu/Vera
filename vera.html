@@ -12,114 +12,114 @@
     color: #333;
     animation: fadeIn 1.2s ease-in;
     font-family: 'Segoe UI', sans-serif;
-}
-@keyframes fadeIn {
-from { opacity: 0; }
-to { opacity: 1; }
-}
-header{
-    padding: 2rem;
-    font-size: large;
-    font-weight: bold;
-    background-color: rgba(168, 44, 170, 0.6);
-    border-radius: 30px;
-    width: 40%;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-}
-.counter {
-font-size: 1.5rem;
-margin: 1rem 0;
-}
-.gallery-wrapper {
-  width: 100%;
-  overflow: hidden;
-}
+    }
+    @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+    }
+    header{
+        padding: 2rem;
+        font-size: large;
+        font-weight: bold;
+        background-color: rgba(168, 44, 170, 0.6);
+        border-radius: 30px;
+        width: 40%;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+    }
+    .counter {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    }
+    .gallery-wrapper {
+      width: 100%;
+      overflow: hidden;
+    }
 
-.gallery {
-  display: flex;
-  gap: 15px;
-  animation: scrollGallery 35s linear infinite;
-}
+    .gallery {
+      display: flex;
+      gap: 15px;
+      animation: scrollGallery 35s linear infinite;
+    }
+    
+    .gallery img {
+      flex-shrink: 0;
+      width: 250px;   /* bilgisayarda genişlik */
+      height: auto;
+      border-radius: 15px;
+     object-fit: cover;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.5s ease;
+      margin-top: 10%;
+    }
 
-.gallery img {
-  flex-shrink: 0;
-  width: 250px;   /* bilgisayarda genişlik */
-  height: auto;
-  border-radius: 15px;
-  object-fit: cover;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  cursor: pointer;
-  transition: transform 0.5s ease;
-  margin-top: 10%;
-}
-
-.gallery img:hover {
-  transform: scale(1.10);
-}
+    .gallery img:hover {
+      transform: scale(1.10);
+    }
 
 /* Telefonda boyutu ayarla */
-@media (max-width: 768px) {
-  .gallery img {
-    width: 150px;
-  }
-}
+    @media (max-width: 768px) {
+      .gallery img {
+        width: 150px;
+      }
+    }
 
-/* Animasyon */
-@keyframes scrollGallery {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
+    /* Animasyon */
+    @keyframes scrollGallery {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
 
-button {
-padding: 1rem 2rem;
-margin: 1rem;
-border: none;
-border-radius: 25px;
-background: #ff4b5c;
-color: white;
-font-size: 1rem;
-cursor: pointer;
-transition: 0.3s;
-}
-button:hover {
-background: #ff1e38;
-transform: scale(1.05);
-}
-#secret {
-display: none;
-margin-top: 2rem;
-font-size: 1.2rem;
-color: #444;
-animation: fadeIn 1s ease-in;
-}
-/* Lightbox */
-#lightbox {
-display: none;
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(0,0,0,0.9);
-justify-content: center;
-align-items: center;
-z-index: 1000;
-animation: fadeIn 0.5s ease-in;
-}
-#lightbox img {
-max-width: 90%;
-max-height: 80%;
-border-radius: 15px;
-box-shadow: 0 0 20px rgba(255,255,255,0.3);
-animation: zoomIn 0.4s ease;
-}
-@keyframes zoomIn {
-from { transform: scale(0.7); opacity: 0; }
-to { transform: scale(1); opacity: 1; }
-}
-</style>
+    button {
+    padding: 1rem 2rem;
+    margin: 1rem;
+    border: none;
+    border-radius: 25px;
+    background: #ff4b5c;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    }
+    button:hover {
+    background: #ff1e38;
+    transform: scale(1.05);
+    }
+    #secret {
+    display: none;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    color: #444;
+    animation: fadeIn 1s ease-in;
+    }
+    /* Lightbox */
+    #lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.5s ease-in;
+    }
+    #lightbox img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+    animation: zoomIn 0.4s ease;
+    }
+    @keyframes zoomIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+    }
+    </style>
 </head>
 <body>
     <header>Vera & Mert</header>
@@ -227,4 +227,5 @@ lightboxImg.src = gallery[currentIndex].src;
 }
 </script>    
 </body>
+
 </html>
