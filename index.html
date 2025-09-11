@@ -1,232 +1,485 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aşk</title>
     <style>
-    body{
-    background-color: rgba(213, 67, 218, 0.6);
-    margin: 0;
-    text-align: center;
-    color: #333;
-    animation: fadeIn 1.2s ease-in;
-    font-family: 'Segoe UI', sans-serif;
-}
-@keyframes fadeIn {
-from { opacity: 0; }
-to { opacity: 1; }
-}
-header{
-    padding: 2rem;
-    font-size: large;
-    font-weight: bold;
-    background-color: rgba(168, 44, 170, 0.6);
-    border-radius: 30px;
-    width: 40%;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-}
-.counter {
-font-size: 1.5rem;
-margin: 1rem 0;
-}
-.gallery-wrapper {
-  width: 100%;
-  overflow: hidden;
-}
-
-.gallery {
-  display: flex;
-  gap: 15px;
-  animation: scrollGallery 4s linear infinite;
-}
-
-.gallery img {
-  flex-shrink: 0;
-  width: 250px;   /* bilgisayarda genişlik */
-  height: auto;
-  border-radius: 15px;
-  object-fit: cover;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  cursor: pointer;
-  transition: transform 0.5s ease;
-  margin-top: 25%;
-}
-
-.gallery img:hover {
-  transform: scale(1.10);
-}
-
-/* Telefonda boyutu ayarla */
-@media (max-width: 768px) {
-  .gallery img {
-    width: 150px;
-  }
-}
-
-/* Animasyon */
-@keyframes scrollGallery {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-button {
-padding: 1rem 2rem;
-margin: 1rem;
-border: none;
-border-radius: 25px;
-background: #ff4b5c;
-color: white;
-font-size: 1rem;
-cursor: pointer;
-transition: 0.3s;
-}
-button:hover {
-background: #ff1e38;
-transform: scale(1.05);
-}
-#secret {
-display: none;
-margin-top: 2rem;
-font-size: 1.2rem;
-color: #444;
-animation: fadeIn 1s ease-in;
-}
-/* Lightbox */
-#lightbox {
-display: none;
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(0,0,0,0.9);
-justify-content: center;
-align-items: center;
-z-index: 1000;
-animation: fadeIn 0.5s ease-in;
-}
-#lightbox img {
-max-width: 90%;
-max-height: 80%;
-border-radius: 15px;
-box-shadow: 0 0 20px rgba(255,255,255,0.3);
-animation: zoomIn 0.4s ease;
-}
-@keyframes zoomIn {
-from { transform: scale(0.7); opacity: 0; }
-to { transform: scale(1); opacity: 1; }
-}
-</style>
+    body {
+        background: rgba(213, 67, 218, 0.6);
+        margin: 0;
+        text-align: center;
+        color: #333;
+        font-family: 'Segoe UI', sans-serif;
+        animation: fadeIn 1.2s;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    header {
+        padding: 1.5rem 2rem;
+        font-size: 2rem;
+        font-weight: bold;
+        background: rgba(168, 44, 170, 0.6);
+        border-radius: 30px;
+        width: fit-content;
+        min-width: 220px;
+        max-width: 95vw;
+        margin: 2rem auto 0.5rem auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.2rem;
+        box-shadow: 0 0 24px 0 rgba(168,44,170,0.10);
+        animation: headerPop 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    .header-text {
+        letter-spacing: 2px;
+        background: linear-gradient(90deg, #ff4b5c 60%, #ff4b5c 60%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: textGradient 3s linear infinite alternate;
+    }
+    .heart-anim {
+        font-size: 2.2rem;
+        animation: heartBeat 1.2s infinite;
+    }
+    .heart-anim:last-child { animation-delay: 0.6s; }
+    @keyframes heartBeat {
+        0%, 100% { transform: scale(1); }
+        10% { transform: scale(1.25); }
+        20% { transform: scale(1); }
+        30% { transform: scale(1.15); }
+        40% { transform: scale(1); }
+    }
+    @keyframes headerPop {
+        0% { transform: scale(0.7) translateY(-40px); opacity: 0; }
+        80% { transform: scale(1.05) translateY(5px); opacity: 1; }
+        100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    @keyframes textGradient {
+        0% { filter: brightness(1); }
+        100% { filter: brightness(1.25) drop-shadow(0 0 8px #ff4b5c88); }
+    }
+    .gallery-wrapper {
+        width: 100vw;
+        max-width: 100vw;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 25px;
+        background: rgba(255,255,255,0.15);
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        padding: 10px 0;
+    }
+    .gallery {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        width: max-content;
+        min-width: 100vw;
+        animation: scrollGallery 80s linear infinite;
+    }
+    .gallery img {
+        flex-shrink: 0;
+        width: 420px;
+        height: 380px;
+        border-radius: 18px;
+        object-fit: cover;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+        cursor: pointer;
+        transition: transform 0.5s;
+        background: #fff;
+        display: block;
+    }
+    @media (max-width: 1100px) {
+        .gallery img { width: 300px; height: 270px; }
+    }
+    @media (max-width: 700px) {
+        .gallery { gap: 12px; }
+        .gallery img { width: 160px; height: 140px; }
+        header { font-size: 1.1rem; padding: 0.8rem 0.5rem; margin-top: 1.2rem; margin-bottom: 0.5rem; gap: 0.7rem; }
+        .header-text { font-size: 1.1em; }
+        .heart-anim { font-size: 1.3rem; }
+    }
+    @media (max-width: 400px) {
+        .gallery img { width: 100px; height: 90px; }
+        header { font-size: 0.95rem; padding: 0.5rem 0.2rem; }
+    }
+    @keyframes scrollGallery {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    .counter-area {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin: 1.2rem 0;
+        flex-wrap: wrap;
+    }
+    .counter-box {
+        background: rgba(255,255,255,0.25);
+        border-radius: 18px;
+        padding: 1rem 1.5rem;
+        min-width: 180px;
+        margin-bottom: 0.5rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        position: relative;
+        animation: counterPop 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    .counter-box::before {
+        content: "💖";
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        font-size: 1.2rem;
+        opacity: 0.25;
+        animation: floatHeart 2.5s infinite alternate;
+        pointer-events: none;
+    }
+    .counter-title {
+        font-size: 1.05rem;
+        font-weight: 500;
+        margin-bottom: 0.4rem;
+        color: #a82caa;
+        animation: counterTitleAnim 2s infinite alternate;
+    }
+    .counter {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #222;
+        animation: counterAnim 1.5s infinite alternate;
+    }
+    @keyframes counterPop {
+        0% { transform: scale(0.7) translateY(30px); opacity: 0; }
+        80% { transform: scale(1.05) translateY(-5px); opacity: 1; }
+        100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    @keyframes floatHeart {
+        0% { transform: translateY(0) scale(1); opacity: 0.25; }
+        100% { transform: translateY(-10px) scale(1.2); opacity: 0.4; }
+    }
+    @keyframes counterTitleAnim {
+        0% { letter-spacing: 0; }
+        100% { letter-spacing: 2px; color: #ff4b5c; }
+    }
+    @keyframes counterAnim {
+        0% { color: #a82caa; }
+        100% { color: #ff4b5c; text-shadow: 0 0 8px #ff4b5c44; }
+    }
+    @media (max-width: 700px) {
+        .counter-area { flex-direction: column; gap: 0.7rem; align-items: center; }
+        .counter-box { width: 90vw; min-width: unset; padding: 0.7rem 0.5rem; }
+    }
+    /* Lightbox */
+    #lightbox {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.9);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        animation: fadeIn 0.5s;
+    }
+    #lightbox img {
+        max-width: 90vw;
+        max-height: 80vh;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(255,255,255,0.3);
+        animation: zoomIn 0.4s;
+        background: #fff;
+    }
+    .closeBtn, .navBtn {
+        position: absolute;
+        top: 20px;
+        background: rgba(255,255,255,0.2);
+        border: none;
+        color: #fff;
+        font-size: 2rem;
+        cursor: pointer;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1010;
+        transition: background 0.2s;
+    }
+    .closeBtn { right: 20px; }
+    .navBtn.prev { left: 20px; top: 50%; transform: translateY(-50%); }
+    .navBtn.next { right: 20px; top: 50%; transform: translateY(-50%); }
+    .closeBtn:hover, .navBtn:hover { background: rgba(255,255,255,0.5); color: #222; }
+    @keyframes zoomIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    /* Gizli kutu */
+    .secret-box {
+        margin: 2.5rem auto 2rem auto;
+        padding: 2rem 1.2rem 2.5rem 1.2rem;
+        background: rgba(255,255,255,0.22);
+        border-radius: 22px;
+        box-shadow: 0 2px 16px rgba(168,44,170,0.08);
+        width: 350px;
+        max-width: 90vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.1rem;
+        font-size: 1.1rem;
+    }
+    .secret-box label {
+        font-weight: 500;
+        color: #a82caa;
+        margin-bottom: 0.2rem;
+    }
+    .secret-box input[type="text"] {
+        padding: 0.7rem 1rem;
+        border-radius: 12px;
+        border: 1.5px solid #a82caa;
+        font-size: 1.1rem;
+        outline: none;
+        transition: border 0.2s;
+        width: 100%;
+        max-width: 250px;
+        text-align: center;
+    }
+    .secret-box input[type="text"]:focus {
+        border: 1.5px solid #ff4b5c;
+    }
+    .secret-box button {
+        padding: 0.6rem 1.5rem;
+        border-radius: 12px;
+        border: none;
+        background: #ff4b5c;
+        color: #fff;
+        font-size: 1.1rem;
+        cursor: pointer;
+        margin-top: 0.5rem;
+        transition: background 0.2s;
+    }
+    .secret-box button:hover {
+        background: #a82caa;
+    }
+    .hidden-message {
+        display: none;
+        margin-top: 1.2rem;
+        font-size: 1.25rem;
+        color: #ff4b5c;
+        font-weight: bold;
+        letter-spacing: 1px;
+        animation: secretFadeIn 1.5s cubic-bezier(.68,-0.55,.27,1.55);
+        text-shadow: 0 0 12px #ff4b5c44, 0 2px 8px #a82caa33;
+        min-height: 1.5em;
+    }
+    .show-message {
+        display: block !important;
+        animation: secretFadeIn 1.5s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    .success {
+        color: #1bbf4c;
+        text-shadow: 0 0 8px #1bbf4c44;
+    }
+    .error {
+        color: #ff4b5c;
+        text-shadow: 0 0 8px #ff4b5c44;
+    }
+    .love-anim {
+        color: #ff4b5c;
+        animation: loveFadeIn 2s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    @keyframes secretFadeIn {
+        0% { opacity: 0; transform: scale(0.7) translateY(30px);}
+        80% { opacity: 1; transform: scale(1.05) translateY(-5px);}
+        100% { opacity: 1; transform: scale(1) translateY(0);}
+    }
+    @keyframes loveFadeIn {
+        0% { opacity: 0; transform: scale(0.7) translateY(30px);}
+        80% { opacity: 1; transform: scale(1.05) translateY(-5px);}
+        100% { opacity: 1; transform: scale(1) translateY(0);}
+    }
+    </style>
 </head>
 <body>
-    <header>Vera & Mert</header>
+    <header>
+        <span class="heart-anim">❤️</span>
+        <span class="header-text">Vera & Mert</span>
+        <span class="heart-anim">❤️</span>
+    </header>
 
-<div class="gallery" id="gallery">
-  <img src="foto (1).jpg" alt="biz1">
-  <img src="foto (2).jpg" alt="biz2">
-  <img src="foto (3).jpg" alt="biz3">
-  <img src="foto (4).jpg" alt="biz4">
-  <img src="foto (6).jpg" alt="biz6">
-  <img src="foto (7).jpg" alt="biz7">
-  <img src="foto (8).jpg" alt="biz8">
-  <img src="foto (9).jpg" alt="biz9">
-  <img src="foto (10).jpg" alt="biz10">
-  <img src="foto (11).jpg" alt="biz11">
-  <img src="foto (12).jpg" alt="biz12">
-  <img src="foto (13).jpg" alt="biz13">
-  <img src="foto (14).jpg" alt="biz14">
-  <img src="foto (15).jpg" alt="biz15">
-  <img src="foto (16).jpg" alt="biz16">
-  <img src="foto (17).jpg" alt="biz17">
-  <img src="foto (18).jpg" alt="biz18">
-  <img src="foto (19).jpg" alt="biz19">
-  <img src="foto (20).jpg" alt="biz20">
-  <img src="foto (21).jpg" alt="biz21">
-  <img src="foto (22).jpg" alt="biz22">
-  <img src="foto (23).jpg" alt="biz23">
-  <img src="foto (24).jpg" alt="biz24">
-  <img src="foto (25).jpg" alt="biz25">
-  <img src="foto (26).jpg" alt="biz26">
-  <img src="foto (27).jpg" alt="biz27">
-  <img src="foto (28).jpg" alt="biz28">
-  <img src="foto (29).jpg" alt="biz29">
-  <img src="foto (30).jpg" alt="biz30">
-  <img src="foto (31).jpg" alt="biz31">
-  <img src="foto (32).jpg" alt="biz32">
-  <img src="foto (33).jpg" alt="biz33">
-  <img src="foto (34).jpg" alt="biz34">
-  <img src="foto (35).jpg" alt="biz35">
-  <img src="foto (36).jpg" alt="biz36">
-  <img src="foto (37).jpg" alt="biz37">
-  <img src="foto (38).jpg" alt="biz38">
-  <img src="foto (39).jpg" alt="biz39">
-  <img src="foto (40).jpg" alt="biz40">
-  <img src="foto (41).jpg" alt="biz41">
-  <img src="foto (42).jpg" alt="biz42">
-  <img src="foto (43).jpg" alt="biz43">
-  <img src="foto (44).jpg" alt="biz44">
-  <img src="foto (45).jpg" alt="biz45">
-  <img src="foto (46).jpg" alt="biz46">
-  <img src="foto (47).jpg" alt="biz47">
-  <img src="foto (48).jpg" alt="biz48">
-  <img src="foto (49).jpg" alt="biz49">
-</div>
+    <div class="gallery-wrapper">
+      <div class="gallery" id="gallery">
+        <img src="foto (1).jpg" alt="biz1">
+        <img src="foto (2).jpg" alt="biz2">
+        <img src="foto (3).jpg" alt="biz3">
+        <img src="foto (4).jpg" alt="biz4">
+        <img src="foto (6).jpg" alt="biz6">
+        <img src="foto (7).jpg" alt="biz7">
+        <img src="foto (8).jpg" alt="biz8">
+        <img src="foto (9).jpg" alt="biz9">
+        <img src="foto (10).jpg" alt="biz10">
+        <img src="foto (11).jpg" alt="biz11">
+        <img src="foto (12).jpg" alt="biz12">
+        <img src="foto (13).jpg" alt="biz13">
+        <img src="foto (14).jpg" alt="biz14">
+        <img src="foto (15).jpg" alt="biz15">
+        <img src="foto (16).jpg" alt="biz16">
+        <img src="foto (17).jpg" alt="biz17">
+        <img src="foto (18).jpg" alt="biz18">
+        <img src="foto (19).jpg" alt="biz19">
+        <img src="foto (20).jpg" alt="biz20">
+        <img src="foto (21).jpg" alt="biz21">
+        <img src="foto (22).jpg" alt="biz22">
+        <img src="foto (23).jpg" alt="biz23">
+        <img src="foto (24).jpg" alt="biz24">
+        <img src="foto (25).jpg" alt="biz25">
+        <img src="foto (26).jpg" alt="biz26">
+        <img src="foto (27).jpg" alt="biz27">
+        <img src="foto (28).jpg" alt="biz28">
+        <img src="foto (29).jpg" alt="biz29">
+        <img src="foto (30).jpg" alt="biz30">
+        <img src="foto (31).jpg" alt="biz31">
+        <img src="foto (32).jpg" alt="biz32">
+        <img src="foto (33).jpg" alt="biz33">
+        <img src="foto (34).jpg" alt="biz34">
+        <img src="foto (35).jpg" alt="biz35">
+        <img src="foto (36).jpg" alt="biz36">
+        <img src="foto (37).jpg" alt="biz37">
+        <img src="foto (38).jpg" alt="biz38">
+        <img src="foto (39).jpg" alt="biz39">
+        <img src="foto (40).jpg" alt="biz40">
+        <img src="foto (41).jpg" alt="biz41">
+        <img src="foto (42).jpg" alt="biz42">
+        <img src="foto (43).jpg" alt="biz43">
+        <img src="foto (44).jpg" alt="biz44">
+        <img src="foto (45).jpg" alt="biz45">
+        <img src="foto (46).jpg" alt="biz46">
+        <img src="foto (47).jpg" alt="biz47">
+        <img src="foto (48).jpg" alt="biz48">
+      </div>
+    </div>
 
+    <div class="counter-area">
+      <div class="counter-box">
+        <div class="counter-title">Yıl Dönümümüze Kalan</div>
+        <div class="counter" id="anniversary"></div>
+      </div>
+      <div class="counter-box">
+        <div class="counter-title">Mert'in Doğum Gününe Kalan</div>
+        <div class="counter" id="mybday"></div>
+      </div>
+      <div class="counter-box">
+        <div class="counter-title">Vera'nın Doğum Gününe Kalan</div>
+        <div class="counter" id="herbday"></div>
+      </div>
+    </div>
 
-<button onclick="showSecret()">Bana tıkla 💌</button>
+    <div id="lightbox">
+        <button class="closeBtn" onclick="closeLightbox()">✖</button>
+        <button class="navBtn prev" onclick="prevImg()">⟨</button>
+        <img id="lightboxImg" src="">
+        <button class="navBtn next" onclick="nextImg()">⟩</button>
+    </div>
 
+    <div class="secret-box">
+      <label for="mother-maiden">Anne kızlık soyadın nedir?</label>
+      <input type="text" id="mother-maiden" autocomplete="off" placeholder="Cevabını yaz...">
+      <button id="verify-btn" type="button">Doğrula</button>
+      <div id="auth-message" class="hidden-message"></div>
+    </div>
 
-<div id="secret">Seni her şeyden çok seviyorum ❤️</div>
+    <script>
+    // Sayaç fonksiyonu
+    function getNextDate(month, day) {
+        const now = new Date();
+        let year = now.getFullYear();
+        let target = new Date(year, month - 1, day);
+        if (target < now) target = new Date(year + 1, month - 1, day);
+        return target;
+    }
+    function updateCounter(id, month, day) {
+        const now = new Date();
+        const target = getNextDate(month, day);
+        const diff = target - now;
+        const days = Math.floor(diff / (1000*60*60*24));
+        const hours = Math.floor((diff / (1000*60*60)) % 24);
+        const mins = Math.floor((diff / (1000*60)) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
+        document.getElementById(id).textContent =
+            `${days} gün ${hours} saat ${mins} dk ${secs} sn`;
+    }
+    setInterval(() => {
+        updateCounter("anniversary", 6, 15); // 15 Haziran
+        updateCounter("mybday", 4, 15);      // 15 Nisan
+        updateCounter("herbday", 3, 20);     // 20 Mart
+    }, 1000);
+    updateCounter("anniversary", 6, 15);
+    updateCounter("mybday", 4, 15);
+    updateCounter("herbday", 3, 20);
 
+    // Lightbox logic
+    const gallery = document.querySelectorAll(".gallery img");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    let currentIndex = 0;
 
-<!-- Lightbox -->
-<div id="lightbox">
-<button class="closeBtn" onclick="closeLightbox()">✖</button>
-<button class="navBtn prev" onclick="prevImg()">⟨</button>
-<img id="lightboxImg" src="">
-<button class="navBtn next" onclick="nextImg()">⟩</button>
-</div>
-<script>
-function showSecret(){
-document.getElementById("secret").style.display = "block";
-}
+    gallery.forEach((img, index) => {
+        img.addEventListener("click", () => {
+            currentIndex = index;
+            openLightbox(img.src);
+        });
+    });
 
+    function openLightbox(src){
+        lightbox.style.display = "flex";
+        lightboxImg.src = src;
+    }
+    function closeLightbox(){
+        lightbox.style.display = "none";
+    }
+    function prevImg(){
+        currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
+        lightboxImg.src = gallery[currentIndex].src;
+    }
+    function nextImg(){
+        currentIndex = (currentIndex + 1) % gallery.length;
+        lightboxImg.src = gallery[currentIndex].src;
+    }
 
-// Lightbox logic
-const gallery = document.querySelectorAll(".gallery img");
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightboxImg");
-let currentIndex = 0;
+    // Gizli mesaj kutusu kontrolü
+    const maidenInput = document.getElementById('mother-maiden');
+    const authMsg = document.getElementById('auth-message');
+    const verifyBtn = document.getElementById('verify-btn');
+    let authTimeout = null;
 
+    function checkMaidenName() {
+        clearTimeout(authTimeout);
+        const value = maidenInput.value.trim().toLowerCase()
+            .replace(/ç/g, 'c')
+            .replace(/ş/g, 's')
+            .replace(/ı/g, 'i')
+            .replace(/ğ/g, 'g')
+            .replace(/ü/g, 'u')
+            .replace(/ö/g, 'o');
+        const validAnswers = ['pecen', 'peçen'];
+        authMsg.className = 'hidden-message';
+        if (value.length === 0) {
+            authMsg.style.display = "none";
+            return;
+        }
+        authMsg.style.display = "block";
+        if (validAnswers.includes(value)) {
+            authMsg.textContent = "Kimlik doğrulandı ✔️";
+            authMsg.classList.add('success', 'show-message');
+            authTimeout = setTimeout(() => {
+                authMsg.textContent = "Seni Çok Seviyorum Canım Aşkım 💖";
+                authMsg.classList.remove('success');
+                authMsg.classList.add('love-anim');
+            }, 1500);
+        } else {
+            authMsg.textContent = "Sen Vera değilsin sg!";
+            authMsg.classList.add('error', 'show-message');
+        }
+    }
 
-gallery.forEach((img, index) => {
-img.addEventListener("click", () => {
-currentIndex = index;
-openLightbox(img.src);
-});
-});
-
-
-function openLightbox(src){
-lightbox.style.display = "flex";
-lightboxImg.src = src;
-}
-function closeLightbox(){
-lightbox.style.display = "none";
-}
-function prevImg(){
-currentIndex = (currentIndex - 1 + gallery.length) % gallery.length;
-lightboxImg.src = gallery[currentIndex].src;
-}
-function nextImg(){
-currentIndex = (currentIndex + 1) % gallery.length;
-lightboxImg.src = gallery[currentIndex].src;
-}
-</script>    
+    verifyBtn.addEventListener('click', checkMaidenName);
+    </script>
 </body>
-
 </html>
-
