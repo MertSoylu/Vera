@@ -127,8 +127,8 @@
     <button class="back-btn" onclick="goBack()">Geri Dön</button>
 
     <script>
-        // Eğer önceki sayfa yoksa veya özel.html değilse index.html'e yönlendir
-        if (!document.referrer || !document.referrer.includes('index.html')) {
+        // Eğer önceki sayfa yoksa (referrer boşsa) index.html'e yönlendir
+        if (!document.referrer) {
             window.location.href = "index.html";
         }
 
