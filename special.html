@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Özel Sayfa</title>
+    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <style>
+        body {
+            background: rgba(213, 67, 218, 0.6);
+            margin: 0;
+            text-align: center;
+            color: #333;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+        }
+
+        header {
+            padding: 1.5rem 2rem;
+            font-size: 2rem;
+            font-weight: bold;
+            background: rgba(168, 44, 170, 0.6);
+            border-radius: 30px;
+            width: fit-content;
+            min-width: 220px;
+            max-width: 95vw;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            box-shadow: 0 0 24px 0 rgba(168,44,170,0.10);
+        }
+
+        .header-text {
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #ff4b5c 60%, #ff4b5c 60%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .heart-anim {
+            font-size: 2.2rem;
+            animation: heartBeat 1.2s infinite;
+        }
+
+        .heart-anim:last-child { animation-delay: 0.6s; }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            10% { transform: scale(1.25); }
+            20% { transform: scale(1); }
+            30% { transform: scale(1.15); }
+            40% { transform: scale(1); }
+        }
+
+        .big-heart {
+            font-size: 15rem; /* Kalp boyutu artırıldı */
+            color: #ff4b5c;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .love-message {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fff;
+            margin-top: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            border-right: 2px solid rgba(255, 255, 255, 0.75); /* Yazı efekti için */
+            background: linear-gradient(90deg, #ff4b5c, #ff99aa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-btn {
+            position: relative;
+            bottom: 2rem;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            background-color: #ff4b5c;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: #a82caa;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <span class="heart-anim">❤️</span>
+        <span class="header-text">Özel Sayfa</span>
+        <span class="heart-anim">❤️</span>
+    </header>
+
+    <!-- Büyük Kalp ve Mesaj -->
+    <div class="content">
+        <div class="big-heart">❤️</div>
+        <div class="love-message" id="loveMessage">Seni Çok Seviyorum Aşkım</div>
+    </div>
+
+    <!-- Geri Dön Butonu -->
+    <button class="back-btn" onclick="goBack()">Geri Dön</button>
+
+    <script>
+        // Eğer önceki sayfa yoksa veya özel.html değilse index.html'e yönlendir
+        if (!document.referrer || !document.referrer.includes('index.html')) {
+            window.location.href = "index.html";
+        }
+
+        const loveMessage = document.getElementById('loveMessage');
+
+        // Yazma animasyonu tamamlandıktan sonra büyüme-küçülme animasyonu başlat
+        loveMessage.style.animation = 'fadeInText 5s steps(30, end) 1';
+        loveMessage.addEventListener('animationend', () => {
+            loveMessage.style.animation = 'growShrink 1.5s infinite alternate';
+        });
+
+        // Animasyon stilleri
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fadeInText {
+                from {
+                    width: 0;
+                }
+                to {
+                    width: 100%;
+                }
+            }
+
+            @keyframes growShrink {
+                0% {
+                    transform: scale(1);
+                }
+                100% {
+                    transform: scale(1.2);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        function goBack() {
+            window.location.href = "index.html"; // Kullanıcıyı index.html dosyasına yönlendirir
+        }
+    </script>
+</body>
+</html>
