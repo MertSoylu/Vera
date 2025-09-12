@@ -169,7 +169,7 @@
     </header>
 
     <div class="content">
-        <p>Kimlik doğrulaması için aşağıdaki soruyu cevaplayınız:</p>
+        <p id="question">Kimlik doğrulaması için aşağıdaki soruyu cevaplayınız:</p>
         <div class="input-box">
             <input type="text" id="security-input" placeholder="Anne kızlık soyadınız">
             <button onclick="verifyIdentity()">Doğrula</button>
@@ -180,20 +180,60 @@
     <button class="back-btn" onclick="goBack()">Geri Dön</button>
 
     <script>
-        function verifyIdentity() {
-            const input = document.getElementById('security-input').value.trim().toLowerCase();
-            const message = document.getElementById('message');
-            const validAnswers = ['pecen', 'peçen'];
+        let step = 1; // Adım sayacı
 
-            if (validAnswers.includes(input)) {
+        function normalizeInput(input) {
+            return input
+                .toLowerCase()
+                .replace(/ı/g, 'i')
+                .replace(/ü/g, 'u')
+                .replace(/ç/g, 'c')
+                .replace(/ş/g, 's')
+                .replace(/ö/g, 'o')
+                .replace(/ğ/g, 'g');
+        }
+
+        function verifyIdentity() {
+            const rawInput = document.getElementById('security-input').value.trim();
+            const input = normalizeInput(rawInput);
+            const message = document.getElementById('message');
+            const question = document.getElementById('question');
+            const validAnswersStep1 = ['pecen', 'pecen'];
+            const validAnswersStep2 = ['bilgisayar muhendisligi', 'fizyoterapi'];
+            const validAnswersStep3 = ['evet', 'tabii ki', 'kesinlikle'];
+            const negativeAnswersStep3 = ['hayir', 'yok'];
+
+            if (step === 1 && validAnswersStep1.includes(input)) {
                 message.textContent = "Kimlik Onaylandı ✔️";
                 message.className = "message success";
                 message.style.display = "block";
 
-                // 3 saniye sonra special.html sayfasına yönlendir
-                setTimeout(() => {
-                    window.location.href = "special.html";
-                }, 3000);
+                // İkinci soruya geç
+                document.getElementById('security-input').value = '';
+                document.getElementById('security-input').placeholder = "Okuduğunuz bölüm nedir?";
+                message.style.display = "none";
+                step = 2;
+            } else if (step === 2 && validAnswersStep2.includes(input)) {
+                message.textContent = "Bölüm Onaylandı ✔️";
+                message.className = "message success";
+                message.style.display = "block";
+
+                // Üçüncü soruya geç
+                document.getElementById('security-input').value = '';
+                document.getElementById('security-input').placeholder = "Mert'i Seviyor musunuz?";
+                message.style.display = "none";
+                step = 3;
+            } else if (step === 3 && validAnswersStep3.includes(input)) {
+                message.textContent = "Doğrulama Tamamlandı ✔️";
+                message.className = "message success";
+                message.style.display = "block";
+
+                // special.html sayfasına yönlendir
+                window.location.href = "special.html";
+            } else if (step === 3 && negativeAnswersStep3.includes(input)) {
+                message.innerHTML = "Kimlik doğrulama başarısız! 🖕";
+                message.className = "message error";
+                message.style.display = "block";
             } else {
                 message.textContent = "Kimlik doğrulama başarısız!";
                 message.className = "message error";
