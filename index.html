@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
+     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="m3g6yhvL4qwpneEEx-8mvbfAVqL53XFqe4RWnW0EBYM" />
     <title>Verayı Çok Seviyorum</title>
@@ -31,7 +31,7 @@
     "description": "Vera’ya olan sevgimi paylaşmak için oluşturulan site",
     "publisher": {
       "@type": "Person",
-      "name": "Senin Adın"
+      "name": "Mert Soylu"
     }
   }
   </script>
@@ -106,6 +106,11 @@
         scroll-behavior: smooth; /* Elle kaydırmada yumuşak geçiş */
     }
 
+    /* Kaydırma çubuğunu gizle */
+    .gallery-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+
     .gallery {
         display: flex;
         align-items: center;
@@ -126,7 +131,7 @@
     .gallery img {
         flex-shrink: 0;
         width: 420px;
-        height: 380px;
+        height: 500px; /* Yükseklik artırıldı */
         border-radius: 18px;
         object-fit: cover;
         box-shadow: 0 4px 16px rgba(0,0,0,0.18);
@@ -136,11 +141,11 @@
         display: block;
     }
     @media (max-width: 1100px) {
-        .gallery img { width: 300px; height: 270px; }
+        .gallery img { width: 300px; height: 400px; } /* Orta boyutlu ekranlar için */
     }
     @media (max-width: 700px) {
         .gallery { gap: 12px; }
-        .gallery img { width: 160px; height: 140px; }
+        .gallery img { width: 160px; height: 250px; } /* Küçük ekranlar için */
         header { font-size: 1.1rem; padding: 0.8rem 0.5rem; margin-top: 1.2rem; margin-bottom: 0.5rem; gap: 0.7rem; }
         .header-text { font-size: 1.1em; }
         .heart-anim { font-size: 1.3rem; }
@@ -255,91 +260,6 @@
     .navBtn.next { right: 20px; top: 50%; transform: translateY(-50%); }
     .closeBtn:hover, .navBtn:hover { background: rgba(255,255,255,0.5); color: #222; }
     @keyframes zoomIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    /* Gizli kutu */
-    .secret-box {
-        margin: 2.5rem auto 2rem auto;
-        padding: 2rem 1.2rem 2.5rem 1.2rem;
-        background: rgba(255,255,255,0.22);
-        border-radius: 22px;
-        box-shadow: 0 2px 16px rgba(168,44,170,0.08);
-        width: 350px;
-        max-width: 90vw;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.1rem;
-        font-size: 1.1rem;
-    }
-    .secret-box label {
-        font-weight: 500;
-        color: #a82caa;
-        margin-bottom: 0.2rem;
-    }
-    .secret-box input[type="text"] {
-        padding: 0.7rem 1rem;
-        border-radius: 12px;
-        border: 1.5px solid #a82caa;
-        font-size: 1.1rem;
-        outline: none;
-        transition: border 0.2s;
-        width: 100%;
-        max-width: 250px;
-        text-align: center;
-    }
-    .secret-box input[type="text"]:focus {
-        border: 1.5px solid #ff4b5c;
-    }
-    .secret-box button {
-        padding: 0.6rem 1.5rem;
-        border-radius: 12px;
-        border: none;
-        background: #ff4b5c;
-        color: #fff;
-        font-size: 1.1rem;
-        cursor: pointer;
-        margin-top: 0.5rem;
-        transition: background 0.2s;
-    }
-    .secret-box button:hover {
-        background: #a82caa;
-    }
-    .hidden-message {
-        display: none;
-        margin-top: 1.2rem;
-        font-size: 1.25rem;
-        color: #ff4b5c;
-        font-weight: bold;
-        letter-spacing: 1px;
-        animation: secretFadeIn 1.5s cubic-bezier(.68,-0.55,.27,1.55);
-        text-shadow: 0 0 12px #ff4b5c44, 0 2px 8px #a82caa33;
-        min-height: 1.5em;
-    }
-    .show-message {
-        display: block !important;
-        animation: secretFadeIn 1.5s cubic-bezier(.68,-0.55,.27,1.55);
-    }
-    .success {
-        color: #1bbf4c;
-        text-shadow: 0 0 8px #1bbf4c44;
-    }
-    .error {
-        color: #ff4b5c;
-        text-shadow: 0 0 8px #ff4b5c44;
-    }
-    .love-anim {
-        color: #ff4b5c;
-        animation: loveFadeIn 2s cubic-bezier(.68,-0.55,.27,1.55);
-    }
-    @keyframes secretFadeIn {
-        0% { opacity: 0; transform: scale(0.7) translateY(30px);}
-        80% { opacity: 1; transform: scale(1.05) translateY(-5px);}
-        100% { opacity: 1; transform: scale(1) translateY(0);}
-    }
-    @keyframes loveFadeIn {
-        0% { opacity: 0; transform: scale(0.7) translateY(30px);}
-        80% { opacity: 1; transform: scale(1.05) translateY(-5px);}
-        100% { opacity: 1; transform: scale(1) translateY(0);}
-    }
     </style>
 </head>
 <body>
@@ -423,11 +343,21 @@
         <button class="navBtn next" onclick="nextImg()">⟩</button>
     </div>
 
-    <div class="secret-box">
-      <label for="mother-maiden">Anne kızlık soyadın nedir?</label>
-      <input type="text" id="mother-maiden" autocomplete="off" placeholder="Cevabını yaz...">
-      <button id="verify-btn" type="button">Doğrula</button>
-      <div id="auth-message" class="hidden-message"></div>
+    <!-- Güvenlik Kontrolü Butonu -->
+    <div style="text-align: center; margin-top: 2rem;">
+        <button id="security-btn" style="
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            background-color: #ff4b5c;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        " 
+        onclick="openSecurityPage()">Güvenlik Kontrolü</button>
     </div>
 
     <script>
@@ -488,48 +418,10 @@
         lightboxImg.src = gallery[currentIndex].src;
     }
 
-    // Gizli mesaj kutusu kontrolü
-    const maidenInput = document.getElementById('mother-maiden');
-    const authMsg = document.getElementById('auth-message');
-    const verifyBtn = document.getElementById('verify-btn');
-    let authTimeout = null;
-
-    function checkMaidenName() {
-        clearTimeout(authTimeout);
-        const value = maidenInput.value.trim().toLowerCase()
-            .replace(/ç/g, 'c')
-            .replace(/ş/g, 's')
-            .replace(/ı/g, 'i')
-            .replace(/ğ/g, 'g')
-            .replace(/ü/g, 'u')
-            .replace(/ö/g, 'o');
-        const validAnswers = ['pecen', 'peçen'];
-        authMsg.className = 'hidden-message';
-        if (value.length === 0) {
-            authMsg.style.display = "none";
-            return;
-        }
-        authMsg.style.display = "block";
-        if (validAnswers.includes(value)) {
-            authMsg.textContent = "Kimlik doğrulandı ✔️";
-            authMsg.classList.add('success', 'show-message');
-            authTimeout = setTimeout(() => {
-                authMsg.textContent = "Seni Çok Seviyorum Canım Aşkım 💖";
-                authMsg.classList.remove('success');
-                authMsg.classList.add('love-anim');
-            }, 1500);
-        } else {
-            authMsg.textContent = "Sen Vera değilsin sg!";
-            authMsg.classList.add('error', 'show-message');
-        }
+    // Güvenlik Kontrolü butonuna tıklandığında security.html sayfasını aç
+    function openSecurityPage() {
+        window.location.href = "security.html";
     }
-
-    verifyBtn.addEventListener('click', checkMaidenName);
     </script>
 </body>
 </html>
-
-
-
-
-

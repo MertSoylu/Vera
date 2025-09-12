@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Güvenlik Kontrolü</title>
+    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <style>
+        html, body {
+            height: 100%; /* Tam ekran yüksekliği */
+            margin: 0;
+            overflow: hidden; /* Taşmaları gizle */
+            background: rgba(213, 67, 218, 0.6);
+            text-align: center;
+            color: #333;
+            font-family: 'Segoe UI', sans-serif;
+            animation: fadeIn 1.2s;
+        }
+
+        @keyframes fadeIn { 
+            from { opacity: 0; } 
+            to { opacity: 1; } 
+        }
+
+        header {
+            padding: 1.5rem 2rem;
+            font-size: 2rem;
+            font-weight: bold;
+            background: rgba(168, 44, 170, 0.6);
+            border-radius: 30px;
+            width: fit-content;
+            min-width: 220px;
+            max-width: 95vw;
+            margin: 2rem auto 0.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            box-shadow: 0 0 24px 0 rgba(168,44,170,0.10);
+            animation: headerPop 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+
+        .header-text {
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #ff4b5c 60%, #ff4b5c 60%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGradient 3s linear infinite alternate;
+        }
+
+        .heart-anim {
+            font-size: 2.2rem;
+            animation: heartBeat 1.2s infinite;
+        }
+
+        .heart-anim:last-child { animation-delay: 0.6s; }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            10% { transform: scale(1.25); }
+            20% { transform: scale(1); }
+            30% { transform: scale(1.15); }
+            40% { transform: scale(1); }
+        }
+
+        @keyframes headerPop {
+            0% { transform: scale(0.7) translateY(-40px); opacity: 0; }
+            80% { transform: scale(1.05) translateY(5px); opacity: 1; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        @keyframes textGradient {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.25) drop-shadow(0 0 8px #ff4b5c88); }
+        }
+
+        .content {
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 18px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .input-box {
+            margin: 1.5rem auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .input-box input {
+            padding: 0.7rem 1rem;
+            border-radius: 12px;
+            border: 1.5px solid #a82caa;
+            font-size: 1.1rem;
+            outline: none;
+            transition: border 0.2s;
+            width: 100%;
+            max-width: 250px;
+            text-align: center;
+        }
+
+        .input-box input:focus {
+            border: 1.5px solid #ff4b5c;
+        }
+
+        .input-box button {
+            padding: 0.6rem 1.5rem;
+            border-radius: 12px;
+            border: none;
+            background: #ff4b5c;
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .input-box button:hover {
+            background: #a82caa;
+        }
+
+        .message {
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            display: none;
+        }
+
+        .message.success {
+            color: #1bbf4c;
+            animation: fadeIn 1.5s;
+        }
+
+        .message.error {
+            color: #ff4b5c;
+            animation: fadeIn 1.5s;
+        }
+
+        .back-btn {
+            margin-top: 2rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            border: none;
+            background: #ff4b5c;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #a82caa;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <span class="heart-anim">❤️</span>
+        <span class="header-text">Güvenlik Kontrolü</span>
+        <span class="heart-anim">❤️</span>
+    </header>
+
+    <div class="content">
+        <p>Kimlik doğrulaması için aşağıdaki soruyu cevaplayınız:</p>
+        <div class="input-box">
+            <input type="text" id="security-input" placeholder="Anne kızlık soyadınız">
+            <button onclick="verifyIdentity()">Doğrula</button>
+        </div>
+        <div id="message" class="message"></div>
+    </div>
+
+    <button class="back-btn" onclick="goBack()">Geri Dön</button>
+
+    <script>
+        function verifyIdentity() {
+            const input = document.getElementById('security-input').value.trim().toLowerCase();
+            const message = document.getElementById('message');
+            const validAnswers = ['pecen', 'peçen'];
+
+            if (validAnswers.includes(input)) {
+                message.textContent = "Kimlik Onaylandı ✔️";
+                message.className = "message success";
+                message.style.display = "block";
+
+                // 3 saniye sonra special.html sayfasına yönlendir
+                setTimeout(() => {
+                    window.location.href = "special.html";
+                }, 3000);
+            } else {
+                message.textContent = "Kimlik doğrulama başarısız!";
+                message.className = "message error";
+                message.style.display = "block";
+            }
+        }
+
+        function goBack() {
+            window.location.href = "index.html"; // Kullanıcıyı index.html sayfasına yönlendirir
+        }
+    </script>
+</body>
+</html>
